@@ -1,8 +1,18 @@
 class CommentsController < ApplicationController
 
+
   def create
-    comment = Comment.create(comment_params)
-    redirect_to comment.post
+    @comment = Comment.new(comment_params)
+    if @comment.save
+      redirect_to @comment
+    else
+      render :new
+    end
+  end
+
+  def show
+    @comment = Comment.find(params[:id])
+    @user = @comment.user
   end
 
   private
